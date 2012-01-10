@@ -1,0 +1,19 @@
+<%  if !@issue.blank? &&  @issue.checklist.any? %>
+
+<hr />
+<div id="issue_checklist">
+  <p><strong><%=l(:label_issue_checklist_plural)%></strong></p>
+  
+  <ul id="issue_checklist_items">
+  <% @issue.checklist.each do |checklist_item| %>
+    <%= render :partial => 'issue_checklists/checklist_item', :object => checklist_item %>
+  <% end %>
+  </ul>
+</div>
+
+<% end %>
+
+<% content_for :header_tags do %>
+	<%= javascript_include_tag :issue_checklist, :plugin => 'redmine_issue_checklist'  %>
+	<%= stylesheet_link_tag :issue_checklist, :plugin => 'redmine_issue_checklist'  %>
+<% end %>
