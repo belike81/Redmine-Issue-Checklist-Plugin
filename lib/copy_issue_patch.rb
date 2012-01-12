@@ -13,6 +13,9 @@ module CopyIssuePatch
       copy_from_without_checklist(arg)
       issue = Issue.visible.find(arg)
       self.checklist = issue.checklist
+      self.checklist.each do |object|
+        object.is_done = nil
+      end
       puts "EXECUTED!"
       return self
     end
