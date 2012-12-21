@@ -3,17 +3,14 @@ one:
   id: 1
   is_done: false
   subject: First todo
-  author_id: 1
   issue_id: 1
 two:
   id: 2
   is_done: false
   subject: Second todo
-  author_id: 2
   issue_id: 1
 three:
   id: 3
   is_done: true
   subject: Third todo
-  author_id: 2
   issue_id: 2

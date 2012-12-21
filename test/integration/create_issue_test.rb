@@ -10,7 +10,7 @@ class CreateIssueTest < ActionController::IntegrationTest
     :taggings
     
   def setup
-    RedmineContacts::TestCase.prepare
+    RedmineIssueChecklist::TestCase.prepare
 
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new

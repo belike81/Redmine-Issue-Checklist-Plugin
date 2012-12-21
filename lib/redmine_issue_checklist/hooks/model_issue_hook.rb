@@ -22,18 +22,32 @@ module RedmineIssueChecklist
     class ModelIssueHook < Redmine::Hook::ViewListener
       
       def controller_issues_edit_before_save(context={})
-        save_checklist_to_issue(context, true)
+        if User.current.allowed_to?(:edit_checklists, context[:issue].project) 
+          save_checklist_to_issue(context, RedmineIssueChecklist.settings[:save_log])
+        end
       end
 
       def controller_issues_new_after_save(context={})
-        save_checklist_to_issue(context, false)
-        context[:issue].save
+        if User.current.allowed_to?(:edit_checklists, context[:issue].project)
+          save_checklist_to_issue(context, false)
+          context[:issue].save
+        end
       end
       
       def save_checklist_to_issue(context, create_journal)
         params = context[:params]
         params[:check_list_items] ||= []
         if params && params[:issue]
+          
+          # old_checklist = context[:issue].checklist
+          # new_checklist = params[:check_list_items].uniq.collect{|cli| IssueChecklist.new(:is_done => cli[:is_done], 
+          #                                                                        :subject => cli[:subject])}
+          # deleted_items = old_checklist.map(&:subject) - new_checklist(&:subject)
+          # new_items = new_checklist(&:subject) - old_checklist.map(&:subject) 
+          # 
+          # common_items = old_checklist.select{|k, v| new_checklist.map{|ni| ni[1]}.include?(v)}
+          # changed_items = common_items.select{|k, v| new_checklist.select{|ni| ni[1] == v}[0][0] != k }
+          
           
           old_checklist = context[:issue].checklist.collect(&:info).join(', ')
 

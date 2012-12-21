@@ -6,16 +6,12 @@ Engines::Testing.set_fixture_path
 class RedmineIssueChecklist::TestCase       
   def self.prepare
     Role.find(1, 2, 3, 4).each do |r| 
-      r.permissions << :add_checklists
-      r.save
-    end
-    Role.find(1, 2).each do |r| 
       r.permissions << :edit_checklists
       r.save
     end
-
+    
     Role.find(3, 4).each do |r| 
-      r.permissions << :edit_own_checklists
+      r.permissions << :done_checklists
       r.save
     end 
     
