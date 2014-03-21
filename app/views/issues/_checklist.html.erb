@@ -1,4 +1,4 @@
-<%  if !@issue.blank? &&  @issue.checklist.any? %>
+<%  if !@issue.blank? &&  @issue.checklist.any? && User.current.allowed_to?(:view_checklists, @project) %>
 
 <hr />
 <div id="issue_checklist">

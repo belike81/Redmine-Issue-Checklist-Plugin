@@ -1,12 +1,3 @@
 <li id="checklist_item_<%= checklist_item.id %>" <%= "class=\"is-done-checklist-item\"" if checklist_item.is_done %> > 
-<%= check_box_tag 'checklist_item',
-    "1", 
-    checklist_item.is_done,
-    :disabled => !User.current.allowed_to?(:edit_issues, checklist_item.issue.project),
-    :onclick => remote_function(:url => {:controller => "issue_checklists",
-                                         :action => "done",
-                                         :checklist_item_id => checklist_item.id,
-                                         :is_done => (checklist_item.is_done == false).to_s},
-                                         :with => "checklist_item_#{checklist_item.id}") %>
-  <%= h(checklist_item.subject) %>
+  <%= check_box_tag 'checklist_item', "1", checklist_item.is_done, :disabled => !User.current.allowed_to?(:done_checklists, checklist_item.issue.project), :onclick => remote_function(:url => {:controller => "issue_checklists", :action => "done", :checklist_item_id => checklist_item.id, :is_done => (checklist_item.is_done == false).to_s}, :with => "'checklist_item_#{checklist_item.id}'") %><%= textilizable(checklist_item, :subject).gsub(/<\/?(p|h\d+|li|ul)>/, '').strip %>
 </li>

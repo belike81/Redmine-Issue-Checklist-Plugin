@@ -9,8 +9,8 @@ module CopyIssuePatch
   end
 
   module InstanceMethods
-    def copy_from_with_checklist(arg)
-      copy_from_without_checklist(arg)
+    def copy_from_with_checklist(arg, options={})
+      copy_from_without_checklist(arg, options)
       issue = Issue.visible.find(arg)
       self.checklist = issue.checklist
       self.checklist.each do |object|
